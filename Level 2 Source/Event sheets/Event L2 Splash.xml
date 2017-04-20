@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<c2eventsheet>
+    <!--All the 'name' attributes are ignored by Construct 2 - they are there for readability only.-->
+    <name>Event L2 Splash</name>
+    <events>
+        <event-block sid="9644369184585626">
+            <conditions>
+                <condition id="-7" name="Compare time" sid="2270848024943426" type="System">
+                    <param id="0" name="Comparison">0</param>
+                    <param id="1" name="Time (seconds)">3</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="0" name="Play" sid="9770036185776642" type="Audio">
+                    <param id="0" name="Audio file">Clara Blah</param>
+                    <param id="2" name="Loop">0</param>
+                    <param id="3" name="Volume">0</param>
+                    <param id="1" name="Tag (optional)">&quot;&quot;</param>
+                </action>
+                <action id="-2" name="Go to layout" sid="8755566081735793" type="System">
+                    <param id="0" name="Layout">Level2</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block sid="5149980032278079">
+            <conditions>
+                <condition id="0" name="On clicked" sid="1384186181764507" type="ButtonL1" />
+            </conditions>
+            <actions>
+                <action id="0" name="Play" sid="7695275842964137" type="Audio">
+                    <param id="0" name="Audio file">Clara Blah</param>
+                    <param id="2" name="Loop">0</param>
+                    <param id="3" name="Volume">0</param>
+                    <param id="1" name="Tag (optional)">&quot;&quot;</param>
+                </action>
+                <action id="-2" name="Go to layout" sid="5043859853595359" type="System">
+                    <param id="0" name="Layout">Level2</param>
+                </action>
+            </actions>
+        </event-block>
+    </events>
+</c2eventsheet>

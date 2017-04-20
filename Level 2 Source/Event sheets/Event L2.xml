@@ -1,0 +1,819 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<c2eventsheet>
+    <!--All the 'name' attributes are ignored by Construct 2 - they are there for readability only.-->
+    <name>Event L2</name>
+    <events>
+        <variable comment="Number of Docs to escape before level is finished" constant="0" name="L2Lives" sid="7480135815211222" static="0" type="number">15</variable>
+        <variable comment="Player Score" constant="0" name="L2Score" sid="4643812155337584" static="0" type="number">100</variable>
+        <variable comment="Number of Doctors killed" constant="0" name="L2Kills" sid="7983443079175921" static="0" type="number">0</variable>
+        <variable comment="Countdown Clock" constant="0" name="L2GameTime" sid="6833457142512405" static="0" type="number">60</variable>
+        <variable comment="Number of Awake Patients" constant="0" name="L2AwakePatients" sid="5929195758575204" static="0" type="number">0</variable>
+        <variable constant="0" name="L2InHand" sid="1507235789277634" static="0" type="number">0</variable>
+        <variable comment="Seconds interval between spawning a new enemy." constant="0" name="L2SpawnDocTime" sid="7127476450545025" static="0" type="number">4</variable>
+        <event-group description="" sid="61164545294127" title="L2 System">
+            <sub-events>
+                <event-block sid="3027637737399968">
+                    <conditions>
+                        <condition id="-1" name="Every tick" sid="8834126024776529" type="System" />
+                    </conditions>
+                    <actions>
+                        <action id="0" name="Set text" sid="3749445643917393" type="PlayerScore">
+                            <param id="0" name="Text">&quot;Score: &quot; &amp; L2Score</param>
+                        </action>
+                        <action id="0" name="Set text" sid="524231814868256" type="PlayerLives">
+                            <param id="0" name="Text">&quot;Lives: &quot; &amp;L2Lives</param>
+                        </action>
+                        <action id="0" name="Set text" sid="9053482730260741" type="TextTimer">
+                            <param id="0" name="Text">&quot;Time: &quot; &amp;L2GameTime</param>
+                        </action>
+                        <action id="0" name="Set text" sid="3153778491893791" type="Kills">
+                            <param id="0" name="Text">&quot;Kills: &quot; &amp;L2Kills</param>
+                        </action>
+                    </actions>
+                    <sub-events>
+                        <comment>Stops Patient Appearing At Mouse Pointer On Layout Start</comment>
+                        <event-block sid="4940329769226515">
+                            <conditions>
+                                <condition id="-2" name="On start of layout" sid="3401105200990076" type="System" />
+                            </conditions>
+                            <actions>
+                                <action id="-9" name="Destroy" sid="7898488340183518" type="Patient1" />
+                                <action id="-9" name="Destroy" sid="5920226503512507" type="Patient2" />
+                                <action id="-9" name="Destroy" sid="9540479240998905" type="Patient3" />
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-block>
+            </sub-events>
+        </event-group>
+        <event-group description="" sid="5918671232978592" title="L2 Timing">
+            <sub-events>
+                <comment>Timer - Count down</comment>
+                <event-block sid="7089964977827743">
+                    <conditions>
+                        <condition id="-6" name="Every X seconds" sid="2932431656367896" type="System">
+                            <param id="0" name="Interval (seconds)">1.0</param>
+                        </condition>
+                        <condition id="-7" name="Compare time" sid="8161220807435249" type="System">
+                            <param id="0" name="Comparison">4</param>
+                            <param id="1" name="Time (seconds)">0</param>
+                        </condition>
+                        <condition id="-14" name="Compare variable" sid="9464490618159862" type="System">
+                            <param id="0" name="Variable">L2GameTime</param>
+                            <param id="1" name="Comparison">4</param>
+                            <param id="2" name="Value">0</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-11" name="Subtract from" sid="5357032983549137" type="System">
+                            <param id="0" name="Variable">L2GameTime</param>
+                            <param id="1" name="Value">1</param>
+                        </action>
+                    </actions>
+                </event-block>
+            </sub-events>
+        </event-group>
+        <event-group description="" sid="2021103149805537" title="L2 Doctor">
+            <sub-events>
+                <comment>Doc - Move</comment>
+                <event-block sid="8291043771748864">
+                    <conditions>
+                        <condition id="-2" name="On start of layout" sid="9989444988952837" type="System" />
+                    </conditions>
+                    <actions>
+                        <action behavior="Pathfinding" id="0" name="Find path" sid="3432658660087178" type="DocL2">
+                            <param id="0" name="X">DoctorExit.X</param>
+                            <param id="1" name="Y">DoctorExit.Y</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <comment>Doc - Spawn</comment>
+                <event-block sid="972531228049288">
+                    <conditions>
+                        <condition id="-6" name="Every X seconds" sid="1796029284369159" type="System">
+                            <param id="0" name="Interval (seconds)">L2SpawnDocTime</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="0" name="Spawn another object" sid="1198624562247398" type="DocSpawn">
+                            <param id="0" name="Object">DocL2</param>
+                            <param id="1" name="Layer">&quot;L2Game&quot;</param>
+                            <param id="2" name="Image point">0</param>
+                        </action>
+                        <action behavior="Pathfinding" id="0" name="Find path" sid="2348363109278788" type="DocL2">
+                            <param id="0" name="X">DoctorExit.X</param>
+                            <param id="1" name="Y">DoctorExit.Y</param>
+                        </action>
+                        <action id="-18" name="Rotate clockwise" sid="1992539791628544" type="DocL2">
+                            <param id="0" name="Degrees">180</param>
+                        </action>
+                    </actions>
+                    <sub-events>
+                        <comment>Doc - Increase spawn speed</comment>
+                        <event-block sid="9123922003811475">
+                            <conditions>
+                                <condition id="-14" name="Compare variable" sid="8455764947880483" type="System">
+                                    <param id="0" name="Variable">L2SpawnDocTime</param>
+                                    <param id="1" name="Comparison">4</param>
+                                    <param id="2" name="Value">0.5</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-11" name="Subtract from" sid="7515524229656683" type="System">
+                                    <param id="0" name="Variable">L2SpawnDocTime</param>
+                                    <param id="1" name="Value">0.2</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-block>
+                <comment>Doc - Find &amp; Move Along Path</comment>
+                <event-block sid="5398520830763733">
+                    <conditions>
+                        <condition behavior="Pathfinding" id="0" name="On path found" sid="2568625771135817" type="DocL2" />
+                    </conditions>
+                    <actions>
+                        <action behavior="Pathfinding" id="1" name="Move along path" sid="888587082015581" type="DocL2" />
+                    </actions>
+                </event-block>
+                <comment>Bullet - Hits Doc</comment>
+                <event-block sid="5254428408608924">
+                    <conditions>
+                        <condition id="0" name="On collision with another object" sid="4801125443964343" type="Puke">
+                            <param id="0" name="Object">DocL2</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-12" name="Subtract from" sid="6784879952962369" type="DocL2">
+                            <param id="0" name="Instance variable">L2Health</param>
+                            <param id="1" name="Value">1</param>
+                        </action>
+                        <action id="-9" name="Destroy" sid="5743657315710963" type="Puke" />
+                        <action id="0" name="Spawn another object" sid="1803286643416603" type="Puke">
+                            <param id="0" name="Object">PukeParticles</param>
+                            <param id="1" name="Layer">&quot;L2Game&quot;</param>
+                            <param id="2" name="Image point">1</param>
+                        </action>
+                        <action id="-10" name="Add to" sid="9941846395250594" type="System">
+                            <param id="0" name="Variable">L2Score</param>
+                            <param id="1" name="Value">1</param>
+                        </action>
+                        <action behavior="Flash" id="0" name="Flash" sid="9016797717362453" type="DocL2">
+                            <param id="0" name="&apos;On&apos; time">0.1</param>
+                            <param id="1" name="&apos;Off&apos; time">0.1</param>
+                            <param id="2" name="Duration">1.0</param>
+                        </action>
+                        <action id="0" name="Play" sid="8258668287702567" type="Audio">
+                            <param id="0" name="Audio file">DocDie</param>
+                            <param id="2" name="Loop">0</param>
+                            <param id="3" name="Volume">0</param>
+                            <param id="1" name="Tag (optional)">&quot;&quot;</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block sid="3282534458762145">
+                    <conditions>
+                        <condition id="0" name="On collision with another object" sid="1995691738882515" type="Puke2">
+                            <param id="0" name="Object">DocL2</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-12" name="Subtract from" sid="9173661937925414" type="DocL2">
+                            <param id="0" name="Instance variable">L2Health</param>
+                            <param id="1" name="Value">1</param>
+                        </action>
+                        <action id="-9" name="Destroy" sid="5415411617981052" type="Puke2" />
+                        <action id="0" name="Spawn another object" sid="6909456763425467" type="Puke2">
+                            <param id="0" name="Object">PukeParticles</param>
+                            <param id="1" name="Layer">&quot;L2Game&quot;</param>
+                            <param id="2" name="Image point">1</param>
+                        </action>
+                        <action id="-10" name="Add to" sid="8840104968949647" type="System">
+                            <param id="0" name="Variable">L2Score</param>
+                            <param id="1" name="Value">3</param>
+                        </action>
+                        <action behavior="Flash" id="0" name="Flash" sid="2224799448723189" type="DocL2">
+                            <param id="0" name="&apos;On&apos; time">0.1</param>
+                            <param id="1" name="&apos;Off&apos; time">0.1</param>
+                            <param id="2" name="Duration">1.0</param>
+                        </action>
+                        <action id="0" name="Play" sid="3391123171545167" type="Audio">
+                            <param id="0" name="Audio file">DocDie</param>
+                            <param id="2" name="Loop">0</param>
+                            <param id="3" name="Volume">0</param>
+                            <param id="1" name="Tag (optional)">&quot;&quot;</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block sid="9360752065982406">
+                    <conditions>
+                        <condition id="0" name="On collision with another object" sid="2356912155664288" type="Puke3">
+                            <param id="0" name="Object">DocL2</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-12" name="Subtract from" sid="7790466864252436" type="DocL2">
+                            <param id="0" name="Instance variable">L2Health</param>
+                            <param id="1" name="Value">2</param>
+                        </action>
+                        <action id="-9" name="Destroy" sid="5546351830026233" type="Puke3" />
+                        <action id="0" name="Spawn another object" sid="3253091445810384" type="Puke3">
+                            <param id="0" name="Object">PukeParticles</param>
+                            <param id="1" name="Layer">&quot;L2Game&quot;</param>
+                            <param id="2" name="Image point">1</param>
+                        </action>
+                        <action id="-10" name="Add to" sid="8746045932821177" type="System">
+                            <param id="0" name="Variable">L2Score</param>
+                            <param id="1" name="Value">5</param>
+                        </action>
+                        <action behavior="Flash" id="0" name="Flash" sid="1681798858406772" type="DocL2">
+                            <param id="0" name="&apos;On&apos; time">0.1</param>
+                            <param id="1" name="&apos;Off&apos; time">0.1</param>
+                            <param id="2" name="Duration">1.0</param>
+                        </action>
+                        <action id="0" name="Play" sid="9217131704749644" type="Audio">
+                            <param id="0" name="Audio file">DocDie</param>
+                            <param id="2" name="Loop">0</param>
+                            <param id="3" name="Volume">0</param>
+                            <param id="1" name="Tag (optional)">&quot;&quot;</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <comment>Doc - Destroy</comment>
+                <event-block sid="2543724339021933">
+                    <conditions>
+                        <condition id="-7" name="Compare instance variable" sid="9234259313251694" type="DocL2">
+                            <param id="0" name="Instance variable">L2Health</param>
+                            <param id="1" name="Comparison">3</param>
+                            <param id="2" name="Value">0</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="0" name="Spawn another object" sid="9985068083864721" type="DocL2">
+                            <param id="0" name="Object">DocDestroyParticles</param>
+                            <param id="1" name="Layer">&quot;L2Game&quot;</param>
+                            <param id="2" name="Image point">1</param>
+                        </action>
+                        <action id="-9" name="Destroy" sid="7437460679788489" type="DocL2" />
+                        <action id="-10" name="Add to" sid="9761250830594948" type="System">
+                            <param id="0" name="Variable">L2Kills</param>
+                            <param id="1" name="Value">1</param>
+                        </action>
+                        <action id="-10" name="Add to" sid="4389636038583427" type="System">
+                            <param id="0" name="Variable">L2Score</param>
+                            <param id="1" name="Value">5</param>
+                        </action>
+                        <action id="-15" name="Set visible" sid="1343492019818059" type="TextBonusScore">
+                            <param id="0" name="Visibility">1</param>
+                        </action>
+                        <action id="-16" name="Wait" sid="3962626370822932" type="System">
+                            <param id="0" name="Seconds">1.0</param>
+                        </action>
+                        <action id="-15" name="Set visible" sid="3059168221804976" type="TextBonusScore">
+                            <param id="0" name="Visibility">0</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block sid="4475809923883453">
+                    <conditions>
+                        <condition id="0" name="On collision with another object" sid="2391681146104467" type="DocL2">
+                            <param id="0" name="Object">DoctorExit</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-9" name="Destroy" sid="7157360254541888" type="DocL2" />
+                        <action id="-11" name="Subtract from" sid="494847376012459" type="System">
+                            <param id="0" name="Variable">L2Lives</param>
+                            <param id="1" name="Value">1</param>
+                        </action>
+                    </actions>
+                    <sub-events>
+                        <event-block any="1" sid="7029621814180601">
+                            <conditions>
+                                <condition id="-16" name="Pick random instance" sid="89266689210133" type="System">
+                                    <param id="0" name="Object">Patient1</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-9" name="Destroy" sid="2841026917932663" type="Patient1" />
+                                <action id="0" name="Spawn another object" sid="7381830552029741" type="Patient1">
+                                    <param id="0" name="Object">DocDestroyParticles</param>
+                                    <param id="1" name="Layer">&quot;L2Game&quot;</param>
+                                    <param id="2" name="Image point">0</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block disabled="1" sid="8625485187079904">
+                            <conditions>
+                                <condition id="-22" name="Else" sid="5920394641292357" type="System" />
+                                <condition id="-16" name="Pick random instance" sid="267334215533922" type="System">
+                                    <param id="0" name="Object">Patient2</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-9" name="Destroy" sid="2797298746397418" type="Patient2" />
+                                <action id="0" name="Spawn another object" sid="2855392636298732" type="Patient2">
+                                    <param id="0" name="Object">DocDestroyParticles</param>
+                                    <param id="1" name="Layer">&quot;L2Game&quot;</param>
+                                    <param id="2" name="Image point">0</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block disabled="1" sid="3749135040967861">
+                            <conditions>
+                                <condition id="-22" name="Else" sid="6057414441858379" type="System" />
+                                <condition id="-16" name="Pick random instance" sid="9723375054310803" type="System">
+                                    <param id="0" name="Object">Patient3</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-9" name="Destroy" sid="9439897440186583" type="Patient3" />
+                                <action id="0" name="Spawn another object" sid="398905078259536" type="Patient3">
+                                    <param id="0" name="Object">DocDestroyParticles</param>
+                                    <param id="1" name="Layer">&quot;L2Game&quot;</param>
+                                    <param id="2" name="Image point">0</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-block>
+            </sub-events>
+        </event-group>
+        <event-group description="" sid="4382384339770049" title="L2 Patient">
+            <sub-events>
+                <comment>Patient 1 - Spawn</comment>
+                <event-group description="" sid="2738168929202356" title="Spawn 1">
+                    <sub-events>
+                        <event-block any="1" sid="2161313661408967">
+                            <conditions>
+                                <condition id="6" name="On object clicked" sid="2376439933579648" type="Mouse">
+                                    <param id="0" name="Mouse button">0</param>
+                                    <param id="1" name="Click type">0</param>
+                                    <param id="2" name="Object clicked">Spawn1</param>
+                                </condition>
+                                <condition id="0" name="On key pressed" sid="6135835466358164" type="Keyboard">
+                                    <param id="0" name="Key">49 (1)</param>
+                                </condition>
+                            </conditions>
+                            <actions />
+                            <sub-events>
+                                <event-block sid="9693501036003905">
+                                    <conditions>
+                                        <condition id="-14" name="Compare variable" sid="6677111605642233" type="System">
+                                            <param id="0" name="Variable">L2Score</param>
+                                            <param id="1" name="Comparison">5</param>
+                                            <param id="2" name="Value">20</param>
+                                        </condition>
+                                        <condition id="-14" name="Compare variable" sid="6433531020824535" type="System">
+                                            <param id="0" name="Variable">L2InHand</param>
+                                            <param id="1" name="Comparison">0</param>
+                                            <param id="2" name="Value">0</param>
+                                        </condition>
+                                    </conditions>
+                                    <actions>
+                                        <action id="-3" name="Create object" sid="3679776327168826" type="System">
+                                            <param id="0" name="Object to create">Patient1</param>
+                                            <param id="1" name="Layer">&quot;L2Game&quot;</param>
+                                            <param id="2" name="X">mouse.X</param>
+                                            <param id="3" name="Y">mouse.Y</param>
+                                        </action>
+                                        <action id="-9" name="Set value" sid="3389194040516866" type="System">
+                                            <param id="0" name="Variable">L2InHand</param>
+                                            <param id="1" name="Value">1</param>
+                                        </action>
+                                    </actions>
+                                </event-block>
+                            </sub-events>
+                        </event-block>
+                        <event-block any="1" sid="6899192589854447">
+                            <conditions>
+                                <condition id="6" name="On object clicked" sid="9787534210170559" type="Mouse">
+                                    <param id="0" name="Mouse button">0</param>
+                                    <param id="1" name="Click type">0</param>
+                                    <param id="2" name="Object clicked">Spawn2</param>
+                                </condition>
+                                <condition id="0" name="On key pressed" sid="7043860357826477" type="Keyboard">
+                                    <param id="0" name="Key">50 (2)</param>
+                                </condition>
+                            </conditions>
+                            <actions />
+                            <sub-events>
+                                <event-block sid="6657850327504558">
+                                    <conditions>
+                                        <condition id="-14" name="Compare variable" sid="36569514683909" type="System">
+                                            <param id="0" name="Variable">L2Score</param>
+                                            <param id="1" name="Comparison">5</param>
+                                            <param id="2" name="Value">30</param>
+                                        </condition>
+                                        <condition id="-14" name="Compare variable" sid="5320952633978023" type="System">
+                                            <param id="0" name="Variable">L2InHand</param>
+                                            <param id="1" name="Comparison">0</param>
+                                            <param id="2" name="Value">0</param>
+                                        </condition>
+                                    </conditions>
+                                    <actions>
+                                        <action id="-3" name="Create object" sid="1944796996281528" type="System">
+                                            <param id="0" name="Object to create">Patient2</param>
+                                            <param id="1" name="Layer">&quot;L2Game&quot;</param>
+                                            <param id="2" name="X">mouse.X</param>
+                                            <param id="3" name="Y">mouse.Y</param>
+                                        </action>
+                                        <action id="-9" name="Set value" sid="191626113562437" type="System">
+                                            <param id="0" name="Variable">L2InHand</param>
+                                            <param id="1" name="Value">1</param>
+                                        </action>
+                                    </actions>
+                                </event-block>
+                            </sub-events>
+                        </event-block>
+                        <event-block any="1" sid="7639964534121605">
+                            <conditions>
+                                <condition id="6" name="On object clicked" sid="3312016956741074" type="Mouse">
+                                    <param id="0" name="Mouse button">0</param>
+                                    <param id="1" name="Click type">0</param>
+                                    <param id="2" name="Object clicked">Spawn3</param>
+                                </condition>
+                                <condition id="0" name="On key pressed" sid="4204241943900097" type="Keyboard">
+                                    <param id="0" name="Key">51 (3)</param>
+                                </condition>
+                            </conditions>
+                            <actions />
+                            <sub-events>
+                                <event-block sid="2367219145632654">
+                                    <conditions>
+                                        <condition id="-14" name="Compare variable" sid="1129747188451562" type="System">
+                                            <param id="0" name="Variable">L2Score</param>
+                                            <param id="1" name="Comparison">5</param>
+                                            <param id="2" name="Value">40</param>
+                                        </condition>
+                                        <condition id="-14" name="Compare variable" sid="4088982562650114" type="System">
+                                            <param id="0" name="Variable">L2InHand</param>
+                                            <param id="1" name="Comparison">0</param>
+                                            <param id="2" name="Value">0</param>
+                                        </condition>
+                                    </conditions>
+                                    <actions>
+                                        <action id="-3" name="Create object" sid="6224543999287236" type="System">
+                                            <param id="0" name="Object to create">Patient3</param>
+                                            <param id="1" name="Layer">&quot;L2Game&quot;</param>
+                                            <param id="2" name="X">mouse.X</param>
+                                            <param id="3" name="Y">mouse.Y</param>
+                                        </action>
+                                        <action id="-9" name="Set value" sid="7797540853476478" type="System">
+                                            <param id="0" name="Variable">L2InHand</param>
+                                            <param id="1" name="Value">1</param>
+                                        </action>
+                                    </actions>
+                                </event-block>
+                            </sub-events>
+                        </event-block>
+                        <event-block any="1" sid="1173054594857461">
+                            <conditions>
+                                <condition id="-8" name="Is boolean instance variable set" sid="9351781047969361" type="Patient1">
+                                    <param id="0" name="Instance variable">Floating</param>
+                                </condition>
+                                <condition id="-8" name="Is boolean instance variable set" sid="2468066695019275" type="Patient2">
+                                    <param id="0" name="Instance variable">Floating</param>
+                                </condition>
+                                <condition id="-8" name="Is boolean instance variable set" sid="8551668303414214" type="Patient3">
+                                    <param id="0" name="Instance variable">Floating</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-3" name="Set position" sid="8716249526076602" type="Patient1">
+                                    <param id="0" name="X">round(mouse.X/16)*16</param>
+                                    <param id="1" name="Y">round(mouse.Y/16)*16</param>
+                                </action>
+                                <action id="-3" name="Set position" sid="1743454105878664" type="Patient2">
+                                    <param id="0" name="X">round(mouse.X/16)*16</param>
+                                    <param id="1" name="Y">round(mouse.Y/16)*16</param>
+                                </action>
+                                <action id="-3" name="Set position" sid="1527357518473439" type="Patient3">
+                                    <param id="0" name="X">round(mouse.X/16)*16</param>
+                                    <param id="1" name="Y">round(mouse.Y/16)*16</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="776232303185699">
+                            <conditions>
+                                <condition id="0" name="On click" sid="2449975326626332" type="Mouse">
+                                    <param id="0" name="Mouse button">0</param>
+                                    <param id="1" name="Click type">0</param>
+                                </condition>
+                                <condition id="7" name="Cursor is over object" sid="4150889454594166" type="Mouse">
+                                    <param id="0" name="Object">PatientPillow</param>
+                                </condition>
+                                <condition id="1" inverted="1" name="Is overlapping another object" sid="9795319222901873" type="Patient1">
+                                    <param id="0" name="Object">Patient1</param>
+                                </condition>
+                            </conditions>
+                            <actions />
+                            <sub-events>
+                                <event-block any="1" sid="2995803725308899">
+                                    <conditions>
+                                        <condition id="-8" name="Is boolean instance variable set" sid="8232157262790124" type="Patient1">
+                                            <param id="0" name="Instance variable">Floating</param>
+                                        </condition>
+                                    </conditions>
+                                    <actions>
+                                        <action id="-11" name="Subtract from" sid="3308102900589435" type="System">
+                                            <param id="0" name="Variable">L2Score</param>
+                                            <param id="1" name="Value">20</param>
+                                        </action>
+                                        <action id="-9" name="Set value" sid="2907345866316848" type="System">
+                                            <param id="0" name="Variable">L2InHand</param>
+                                            <param id="1" name="Value">0</param>
+                                        </action>
+                                        <action id="-13" name="Set boolean" sid="8349786386527708" type="Patient1">
+                                            <param id="0" name="Instance variable">Floating</param>
+                                            <param id="1" name="Value">0</param>
+                                        </action>
+                                    </actions>
+                                </event-block>
+                            </sub-events>
+                        </event-block>
+                        <event-block sid="6240754757102668">
+                            <conditions>
+                                <condition id="0" name="On click" sid="4667026575863989" type="Mouse">
+                                    <param id="0" name="Mouse button">0</param>
+                                    <param id="1" name="Click type">0</param>
+                                </condition>
+                                <condition id="7" name="Cursor is over object" sid="464940301676939" type="Mouse">
+                                    <param id="0" name="Object">PatientPillow</param>
+                                </condition>
+                            </conditions>
+                            <actions />
+                            <sub-events>
+                                <event-block sid="9069195852809099">
+                                    <conditions>
+                                        <condition id="-8" name="Is boolean instance variable set" sid="2163730410994529" type="Patient2">
+                                            <param id="0" name="Instance variable">Floating</param>
+                                        </condition>
+                                    </conditions>
+                                    <actions>
+                                        <action id="-11" name="Subtract from" sid="159328341203952" type="System">
+                                            <param id="0" name="Variable">L2Score</param>
+                                            <param id="1" name="Value">30</param>
+                                        </action>
+                                        <action id="-9" name="Set value" sid="3213062640829404" type="System">
+                                            <param id="0" name="Variable">L2InHand</param>
+                                            <param id="1" name="Value">0</param>
+                                        </action>
+                                        <action id="-13" name="Set boolean" sid="9377447710146879" type="Patient2">
+                                            <param id="0" name="Instance variable">Floating</param>
+                                            <param id="1" name="Value">0</param>
+                                        </action>
+                                    </actions>
+                                </event-block>
+                            </sub-events>
+                        </event-block>
+                        <event-block sid="748447108857097">
+                            <conditions>
+                                <condition id="0" name="On click" sid="7850521529555035" type="Mouse">
+                                    <param id="0" name="Mouse button">0</param>
+                                    <param id="1" name="Click type">0</param>
+                                </condition>
+                                <condition id="7" name="Cursor is over object" sid="2193302005360325" type="Mouse">
+                                    <param id="0" name="Object">PatientPillow</param>
+                                </condition>
+                            </conditions>
+                            <actions />
+                            <sub-events>
+                                <event-block sid="8196285781142665">
+                                    <conditions>
+                                        <condition id="-8" name="Is boolean instance variable set" sid="7991280134494732" type="Patient3">
+                                            <param id="0" name="Instance variable">Floating</param>
+                                        </condition>
+                                    </conditions>
+                                    <actions>
+                                        <action id="-11" name="Subtract from" sid="9704548888393528" type="System">
+                                            <param id="0" name="Variable">L2Score</param>
+                                            <param id="1" name="Value">40</param>
+                                        </action>
+                                        <action id="-9" name="Set value" sid="9587432901131569" type="System">
+                                            <param id="0" name="Variable">L2InHand</param>
+                                            <param id="1" name="Value">0</param>
+                                        </action>
+                                        <action id="-13" name="Set boolean" sid="6781437961353665" type="Patient3">
+                                            <param id="0" name="Instance variable">Floating</param>
+                                            <param id="1" name="Value">0</param>
+                                        </action>
+                                    </actions>
+                                </event-block>
+                            </sub-events>
+                        </event-block>
+                        <event-block sid="5188428347140475">
+                            <conditions>
+                                <condition id="0" name="On click" sid="4738055387560521" type="Mouse">
+                                    <param id="0" name="Mouse button">2</param>
+                                    <param id="1" name="Click type">0</param>
+                                </condition>
+                            </conditions>
+                            <actions />
+                            <sub-events>
+                                <event-block any="1" sid="4152586445635972">
+                                    <conditions>
+                                        <condition id="-8" name="Is boolean instance variable set" sid="4006017655892015" type="Patient1">
+                                            <param id="0" name="Instance variable">Floating</param>
+                                        </condition>
+                                        <condition id="-8" name="Is boolean instance variable set" sid="6632304750137164" type="Patient2">
+                                            <param id="0" name="Instance variable">Floating</param>
+                                        </condition>
+                                        <condition id="-8" name="Is boolean instance variable set" sid="7889505066809501" type="Patient3">
+                                            <param id="0" name="Instance variable">Floating</param>
+                                        </condition>
+                                    </conditions>
+                                    <actions>
+                                        <action id="-9" name="Destroy" sid="9576171637911114" type="Patient1" />
+                                        <action id="-9" name="Destroy" sid="894873776607659" type="Patient2" />
+                                        <action id="-9" name="Destroy" sid="67231853780395" type="Patient3" />
+                                        <action id="-9" name="Set value" sid="6986448992251755" type="System">
+                                            <param id="0" name="Variable">L2InHand</param>
+                                            <param id="1" name="Value">0</param>
+                                        </action>
+                                    </actions>
+                                </event-block>
+                            </sub-events>
+                        </event-block>
+                    </sub-events>
+                </event-group>
+                <event-group description="" sid="3035066088549401" title="Attack">
+                    <sub-events>
+                        <event-block any="1" sid="8608658094197275">
+                            <conditions>
+                                <condition id="-8" inverted="1" name="Is boolean instance variable set" sid="2547161346128864" type="Patient1">
+                                    <param id="0" name="Instance variable">Floating</param>
+                                </condition>
+                                <condition id="-8" inverted="1" name="Is boolean instance variable set" sid="2304216027861788" type="Patient2">
+                                    <param id="0" name="Instance variable">Floating</param>
+                                </condition>
+                                <condition id="-8" inverted="1" name="Is boolean instance variable set" sid="2353200858140985" type="Patient3">
+                                    <param id="0" name="Instance variable">Floating</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action behavior="Turret" id="1" name="Add object to target" sid="1257360851511306" type="Patient1">
+                                    <param id="0" name="Target">DocL2</param>
+                                </action>
+                                <action behavior="Turret" id="1" name="Add object to target" sid="3727969145217585" type="Patient2">
+                                    <param id="0" name="Target">DocL2</param>
+                                </action>
+                                <action behavior="Turret" id="1" name="Add object to target" sid="8443225387349964" type="Patient3">
+                                    <param id="0" name="Target">DocL2</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <comment>Puke</comment>
+                        <event-block sid="6400222227650594">
+                            <conditions>
+                                <condition behavior="Turret" id="1" name="On shoot" sid="784587931353669" type="Patient1" />
+                            </conditions>
+                            <actions>
+                                <action id="0" name="Spawn another object" sid="2747226032649472" type="Patient1">
+                                    <param id="0" name="Object">Puke</param>
+                                    <param id="1" name="Layer">&quot;L2Game&quot;</param>
+                                    <param id="2" name="Image point">1</param>
+                                </action>
+                                <action id="0" name="Play" sid="2945371739897796" type="Audio">
+                                    <param id="0" name="Audio file">Ava Blah</param>
+                                    <param id="2" name="Loop">0</param>
+                                    <param id="3" name="Volume">0</param>
+                                    <param id="1" name="Tag (optional)">&quot;&quot;</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="2585065142749813">
+                            <conditions>
+                                <condition behavior="Turret" id="1" name="On shoot" sid="7483096190102192" type="Patient2" />
+                            </conditions>
+                            <actions>
+                                <action id="0" name="Spawn another object" sid="913844906170025" type="Patient2">
+                                    <param id="0" name="Object">Puke2</param>
+                                    <param id="1" name="Layer">&quot;L2Game&quot;</param>
+                                    <param id="2" name="Image point">1</param>
+                                </action>
+                                <action id="0" name="Play" sid="6989478793076356" type="Audio">
+                                    <param id="0" name="Audio file">Clara Blah</param>
+                                    <param id="2" name="Loop">0</param>
+                                    <param id="3" name="Volume">0</param>
+                                    <param id="1" name="Tag (optional)">&quot;&quot;</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="8632344421642968">
+                            <conditions>
+                                <condition behavior="Turret" id="1" name="On shoot" sid="5432553842739824" type="Patient3" />
+                            </conditions>
+                            <actions>
+                                <action id="0" name="Spawn another object" sid="6083434703533023" type="Patient3">
+                                    <param id="0" name="Object">Puke3</param>
+                                    <param id="1" name="Layer">&quot;L2Game&quot;</param>
+                                    <param id="2" name="Image point">1</param>
+                                </action>
+                                <action id="0" name="Play" sid="9339159596762816" type="Audio">
+                                    <param id="0" name="Audio file">Katie Blah</param>
+                                    <param id="2" name="Loop">0</param>
+                                    <param id="3" name="Volume">0</param>
+                                    <param id="1" name="Tag (optional)">&quot;&quot;</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="4290629468485419">
+                            <conditions>
+                                <condition behavior="Bullet" id="1" name="Compare distance travelled" sid="5372615438553304" type="Puke">
+                                    <param id="0" name="Comparison">5</param>
+                                    <param id="1" name="Distance">150</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-9" name="Destroy" sid="3359345720810472" type="Puke" />
+                            </actions>
+                        </event-block>
+                        <event-block sid="6739265958795534">
+                            <conditions>
+                                <condition behavior="Bullet" id="1" name="Compare distance travelled" sid="8664012722849782" type="Puke2">
+                                    <param id="0" name="Comparison">5</param>
+                                    <param id="1" name="Distance">175</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-9" name="Destroy" sid="644318957419188" type="Puke2" />
+                            </actions>
+                        </event-block>
+                        <event-block sid="9043805872121674">
+                            <conditions>
+                                <condition behavior="Bullet" id="1" name="Compare distance travelled" sid="9994304389406313" type="Puke3">
+                                    <param id="0" name="Comparison">0</param>
+                                    <param id="1" name="Distance">200</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-9" name="Destroy" sid="4296086840981396" type="Puke3" />
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-group>
+            </sub-events>
+        </event-group>
+        <event-group description="" sid="7609803617145057" title="Level 2 Finish">
+            <sub-events>
+                <comment>L2 - Win</comment>
+                <event-block sid="418238309218327">
+                    <conditions>
+                        <condition id="-14" name="Compare variable" sid="4731891201091623" type="System">
+                            <param id="0" name="Variable">L2Kills</param>
+                            <param id="1" name="Comparison">5</param>
+                            <param id="2" name="Value">5</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-15" name="Set visible" sid="6692834536790984" type="TextWin">
+                            <param id="0" name="Visibility">1</param>
+                        </action>
+                        <action id="-16" name="Wait" sid="8896867404908775" type="System">
+                            <param id="0" name="Seconds">3</param>
+                        </action>
+                        <action id="-15" name="Set visible" sid="6894633398237399" type="TextWin">
+                            <param id="0" name="Visibility">0</param>
+                        </action>
+                        <action id="-2" name="Go to layout" sid="1077538753791936" type="System">
+                            <param id="0" name="Layout">Level3Splash</param>
+                        </action>
+                        <action id="-21" name="Reset global variables" sid="8880385280621209" type="System" />
+                    </actions>
+                </event-block>
+                <comment>L2 - Lose</comment>
+                <event-block any="1" sid="9975365112892204">
+                    <conditions>
+                        <condition id="-14" name="Compare variable" sid="4382687244261482" type="System">
+                            <param id="0" name="Variable">L2GameTime</param>
+                            <param id="1" name="Comparison">3</param>
+                            <param id="2" name="Value">0</param>
+                        </condition>
+                        <condition id="-14" name="Compare variable" sid="482689947367786" type="System">
+                            <param id="0" name="Variable">L2Lives</param>
+                            <param id="1" name="Comparison">3</param>
+                            <param id="2" name="Value">0</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-15" name="Set visible" sid="6536727794810969" type="TextLose">
+                            <param id="0" name="Visibility">1</param>
+                        </action>
+                        <action id="-16" name="Wait" sid="2054274320655404" type="System">
+                            <param id="0" name="Seconds">3</param>
+                        </action>
+                        <action id="-15" name="Set visible" sid="1763956123919897" type="TextLose">
+                            <param id="0" name="Visibility">0</param>
+                        </action>
+                        <action id="-2" name="Go to layout" sid="5578864133513603" type="System">
+                            <param id="0" name="Layout">Start Screen</param>
+                        </action>
+                        <action id="-21" name="Reset global variables" sid="7096412087447909" type="System" />
+                        <action id="-26" name="Restart layout" sid="3043101523638384" type="System" />
+                    </actions>
+                </event-block>
+            </sub-events>
+        </event-group>
+    </events>
+</c2eventsheet>
