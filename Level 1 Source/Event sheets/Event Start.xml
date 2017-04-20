@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<c2eventsheet>
+    <!--All the 'name' attributes are ignored by Construct 2 - they are there for readability only.-->
+    <name>Event Start</name>
+    <events>
+        <event-block sid="1804848165727516">
+            <conditions>
+                <condition id="0" name="On clicked" sid="5399389052503914" type="ButtonL1" />
+            </conditions>
+            <actions>
+                <action id="25" name="Play at object" sid="4232127893557272" type="Audio">
+                    <param id="0" name="Audio file">CoughButton</param>
+                    <param id="1" name="Loop">0</param>
+                    <param id="2" name="Volume">0</param>
+                    <param id="3" name="Object">TextLayoutDesc</param>
+                    <param id="4" name="Inner angle">360</param>
+                    <param id="5" name="Outer angle">360</param>
+                    <param id="6" name="Outer gain">0</param>
+                    <param id="7" name="Tag (optional)">&quot;&quot;</param>
+                </action>
+                <action id="-2" name="Go to layout" sid="8509483058171883" type="System">
+                    <param id="0" name="Layout">Level1Splash</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block sid="814336431728698">
+            <conditions>
+                <condition id="0" name="On clicked" sid="6608510242914539" type="ButtonL2" />
+            </conditions>
+            <actions>
+                <action id="25" name="Play at object" sid="3099613588778387" type="Audio">
+                    <param id="0" name="Audio file">CoughButton</param>
+                    <param id="1" name="Loop">0</param>
+                    <param id="2" name="Volume">0</param>
+                    <param id="3" name="Object">TextLayoutDesc</param>
+                    <param id="4" name="Inner angle">360</param>
+                    <param id="5" name="Outer angle">360</param>
+                    <param id="6" name="Outer gain">0</param>
+                    <param id="7" name="Tag (optional)">&quot;&quot;</param>
+                </action>
+                <action id="-2" name="Go to layout" sid="17285885863858" type="System">
+                    <param id="0" name="Layout">Level2Splash</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block sid="7024633922124151">
+            <conditions>
+                <condition id="0" name="On clicked" sid="5877964949157261" type="ButtonL3" />
+            </conditions>
+            <actions>
+                <action id="25" name="Play at object" sid="6179804684721707" type="Audio">
+                    <param id="0" name="Audio file">CoughButton</param>
+                    <param id="1" name="Loop">0</param>
+                    <param id="2" name="Volume">0</param>
+                    <param id="3" name="Object">TextLayoutDesc</param>
+                    <param id="4" name="Inner angle">360</param>
+                    <param id="5" name="Outer angle">360</param>
+                    <param id="6" name="Outer gain">0</param>
+                    <param id="7" name="Tag (optional)">&quot;&quot;</param>
+                </action>
+                <action id="-2" name="Go to layout" sid="7253755502651723" type="System">
+                    <param id="0" name="Layout">Level3Splash</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block sid="853438178747378">
+            <conditions>
+                <condition id="-2" name="On start of layout" sid="1314432888240236" type="System" />
+            </conditions>
+            <actions>
+                <action id="0" name="Play" sid="6293199577604183" type="Audio">
+                    <param id="0" name="Audio file">Background_Music</param>
+                    <param id="2" name="Loop">1</param>
+                    <param id="3" name="Volume">0</param>
+                    <param id="1" name="Tag (optional)">&quot;&quot;</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block sid="356543256933156">
+            <conditions>
+                <condition id="7" name="Cursor is over object" sid="3715897902581173" type="Mouse">
+                    <param id="0" name="Object">ButtonL1</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="-15" name="Set visible" sid="7695726944150703" type="TextLayoutDesc">
+                    <param id="0" name="Visibility">1</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block sid="1562956172240166">
+            <conditions>
+                <condition id="-22" name="Else" sid="1611581333876193" type="System" />
+            </conditions>
+            <actions>
+                <action id="-15" name="Set visible" sid="6396430059433378" type="TextLayoutDesc">
+                    <param id="0" name="Visibility">0</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block sid="6207555632499839">
+            <conditions>
+                <condition id="7" name="Cursor is over object" sid="2071628607712097" type="Mouse">
+                    <param id="0" name="Object">ButtonL2</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="-15" name="Set visible" sid="2902224757089546" type="TextLayoutTitle">
+                    <param id="0" name="Visibility">1</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block sid="9810070678928415">
+            <conditions>
+                <condition id="-22" name="Else" sid="8970080129276494" type="System" />
+            </conditions>
+            <actions>
+                <action id="-15" name="Set visible" sid="701278737442752" type="TextLayoutTitle">
+                    <param id="0" name="Visibility">0</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block sid="754835277339838">
+            <conditions>
+                <condition id="7" name="Cursor is over object" sid="3529867606890982" type="Mouse">
+                    <param id="0" name="Object">ButtonL3</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="-15" name="Set visible" sid="4809448891318794" type="TextStartL3">
+                    <param id="0" name="Visibility">1</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block sid="8042684378455295">
+            <conditions>
+                <condition id="-22" name="Else" sid="114232527475618" type="System" />
+            </conditions>
+            <actions>
+                <action id="-15" name="Set visible" sid="4437915733330112" type="TextStartL3">
+                    <param id="0" name="Visibility">0</param>
+                </action>
+            </actions>
+        </event-block>
+    </events>
+</c2eventsheet>

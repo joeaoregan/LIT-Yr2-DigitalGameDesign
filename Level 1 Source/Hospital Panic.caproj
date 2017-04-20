@@ -1,0 +1,617 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<c2project>
+    <name>Hospital Panic</name>
+    <description></description>
+    <version>1.0</version>
+    <author>J</author>
+    <author-email></author-email>
+    <author-website></author-website>
+    <app-id>K00203642</app-id>
+    <unique-id>uzos4ezzjulo</unique-id>
+    <saved-with-version>21600</saved-with-version>
+    <used-plugins>
+        <plugin author="Scirra" id="Audio" version="1">Audio</plugin>
+        <plugin author="Scirra" id="Button" version="1">Button</plugin>
+        <plugin author="Scirra" id="Function" version="1">Function</plugin>
+        <plugin author="Scirra" id="Keyboard" version="1">Keyboard</plugin>
+        <plugin author="Scirra" id="Mouse" version="1">Mouse</plugin>
+        <plugin author="Scirra" id="Particles" version="1">Particles</plugin>
+        <plugin author="Scirra" id="Sprite" version="1">Sprite</plugin>
+        <plugin author="Scirra" id="Text" version="1">Text</plugin>
+        <plugin author="Scirra" id="TiledBg" version="1">Tiled Background</plugin>
+        <plugin author="Scirra" id="Touch" version="1">Touch</plugin>
+    </used-plugins>
+    <used-behaviors>
+        <behavior author="Scirra" id="Bullet" version="1">Bullet</behavior>
+        <behavior author="Scirra" id="Flash" version="1">Flash</behavior>
+        <behavior author="Scirra" id="Pathfinding" version="1">Pathfinding</behavior>
+        <behavior author="Scirra" id="Turret" version="1">Turret</behavior>
+        <behavior author="Scirra" id="solid" version="1">Solid</behavior>
+    </used-behaviors>
+    <used-effects />
+    <configurations>
+        <configuration exporter-descname="HTML5" exporter-id="html5" name="HTML5" />
+    </configurations>
+    <window-size>
+        <width>800</width>
+        <height>600</height>
+    </window-size>
+    <pixel-rounding>0</pixel-rounding>
+    <preview-effects>1</preview-effects>
+    <use-loader-layout>0</use-loader-layout>
+    <configuration-settings>
+        <prop name="Clear background">Yes</prop>
+        <prop name="Enable WebGL">On</prop>
+        <prop name="Fullscreen in browser">Letterbox scale</prop>
+        <prop name="Hide address bar">No</prop>
+        <prop name="Loader style">Progress bar &amp; logo</prop>
+        <prop name="Preview browser">(default)</prop>
+        <prop name="Sampling">Linear</prop>
+        <prop name="Use iOS retina display">All devices</prop>
+    </configuration-settings>
+    <object-folder>
+        <object-type name="Doctor" sid="7076176125606912">
+            <plugin id="Sprite" />
+            <instance-variables>
+                <instance-variable name="health" sid="5120956887704321" type="number" />
+            </instance-variables>
+            <behaviors>
+                <behavior-type name="Pathfinding" sid="3897996028425369">
+                    <behavior id="Pathfinding" />
+                </behavior-type>
+                <behavior-type name="Flash" sid="2274469162388805">
+                    <behavior id="Flash" />
+                </behavior-type>
+            </behaviors>
+            <animation-folder>
+                <animation framecount="4" loop="1" name="Default" pingpong="0" repeatcount="1" repeatto="0" sid="9947972140721408" speed="5">
+                    <frame duration="1" hotspotX="0.503356" hotspotY="0.502703">
+                        <collision-poly>
+                            <point x="1" y="0" />
+                            <point x="1" y="1" />
+                            <point x="0" y="1" />
+                            <point x="0" y="0" />
+                        </collision-poly>
+                    </frame>
+                    <frame duration="1" hotspotX="0.503356" hotspotY="0.502703">
+                        <collision-poly>
+                            <point x="1" y="0" />
+                            <point x="1" y="1" />
+                            <point x="0" y="1" />
+                            <point x="0" y="0" />
+                        </collision-poly>
+                    </frame>
+                    <frame duration="1" hotspotX="0.503356" hotspotY="0.502703">
+                        <collision-poly>
+                            <point x="1" y="0" />
+                            <point x="1" y="1" />
+                            <point x="0" y="1" />
+                            <point x="0" y="0" />
+                        </collision-poly>
+                    </frame>
+                    <frame duration="1" hotspotX="0.503356" hotspotY="0.502703">
+                        <collision-poly>
+                            <point x="1" y="0" />
+                            <point x="1" y="1" />
+                            <point x="0" y="1" />
+                            <point x="0" y="0" />
+                        </collision-poly>
+                    </frame>
+                </animation>
+            </animation-folder>
+        </object-type>
+        <object-type name="Touch" sid="4669670362057387">
+            <plugin id="Touch" />
+        </object-type>
+        <object-type name="GridBackground" sid="7951247554928004">
+            <plugin id="TiledBg" />
+            <texture />
+        </object-type>
+        <object-type name="Wall" sid="5776733471964525">
+            <plugin id="TiledBg" />
+            <behaviors>
+                <behavior-type name="Solid" sid="1683290290239337">
+                    <behavior id="solid" />
+                </behavior-type>
+            </behaviors>
+            <texture />
+        </object-type>
+        <object-type name="DoctorExit" sid="1678448514422392">
+            <plugin id="Sprite" />
+            <animation-folder>
+                <animation framecount="1" loop="0" name="Default" pingpong="0" repeatcount="1" repeatto="0" sid="6910742993204125" speed="5">
+                    <frame duration="1" hotspotX="0.5" hotspotY="0.5" />
+                </animation>
+            </animation-folder>
+        </object-type>
+        <object-type name="Patient1" sid="4577162964574754">
+            <plugin id="Sprite" />
+            <instance-variables>
+                <instance-variable name="Floating" sid="7431323076588573" type="boolean" />
+                <instance-variable name="L2InHand" sid="219992468261325" type="number" />
+            </instance-variables>
+            <behaviors>
+                <behavior-type name="Turret" sid="3952484541995999">
+                    <behavior id="Turret" />
+                </behavior-type>
+            </behaviors>
+            <animation-folder>
+                <animation framecount="1" loop="0" name="Default" pingpong="0" repeatcount="1" repeatto="0" sid="5739817137407558" speed="5">
+                    <frame duration="1" hotspotX="0.649402" hotspotY="0.445614" original-source="E:\Games - CA Files\Pics\face1 brown hair girl.png">
+                        <image-point name="Imagepoint 1" x="0.812749" y="0.452632" />
+                        <collision-poly>
+                            <point x="0.176471" y="0.823529" />
+                            <point x="0.0588235" y="0.441176" />
+                            <point x="0.264706" y="0.117647" />
+                            <point x="0.5" y="0.029412" />
+                            <point x="0.764706" y="0.117647" />
+                            <point x="0.941176" y="0.441176" />
+                            <point x="0.823529" y="0.794118" />
+                            <point x="0.5" y="0.941176" />
+                        </collision-poly>
+                    </frame>
+                </animation>
+            </animation-folder>
+        </object-type>
+        <object-type name="Puke" sid="2456624253730221">
+            <plugin id="Sprite" />
+            <behaviors>
+                <behavior-type name="Bullet" sid="1990695391725697">
+                    <behavior id="Bullet" />
+                </behavior-type>
+            </behaviors>
+            <animation-folder>
+                <animation framecount="4" loop="1" name="Default" pingpong="0" repeatcount="1" repeatto="0" sid="8914689550388053" speed="5">
+                    <frame duration="1" hotspotX="0.5" hotspotY="0.503597" />
+                    <frame duration="1" hotspotX="0.5" hotspotY="0.503597" />
+                    <frame duration="1" hotspotX="0.5" hotspotY="0.503597" />
+                    <frame duration="1" hotspotX="0.5" hotspotY="0.503597" />
+                </animation>
+            </animation-folder>
+        </object-type>
+        <object-type name="DocSpawn" sid="2336950214342631">
+            <plugin id="Sprite" />
+            <animation-folder>
+                <animation framecount="1" loop="0" name="Default" pingpong="0" repeatcount="1" repeatto="0" sid="4780207257959731" speed="5">
+                    <frame duration="1" hotspotX="0.5" hotspotY="0.5">
+                        <image-point name="Imagepoint 1" x="0.5" y="0.5" />
+                    </frame>
+                </animation>
+            </animation-folder>
+        </object-type>
+        <object-type name="PukeParticles" sid="3704245658911321">
+            <plugin id="Particles" />
+            <texture />
+        </object-type>
+        <object-type name="DocDestroyParticles" sid="3687846699294512">
+            <plugin id="Particles" />
+            <texture />
+        </object-type>
+        <object-type name="PatientPillow" sid="8794418083396309">
+            <plugin id="TiledBg" />
+            <behaviors>
+                <behavior-type name="Solid" sid="6141026287019447">
+                    <behavior id="solid" />
+                </behavior-type>
+            </behaviors>
+            <texture />
+        </object-type>
+        <object-type name="Sprite" sid="2700001550678038">
+            <plugin id="Sprite" />
+            <animation-folder>
+                <animation framecount="1" loop="0" name="Default" pingpong="0" repeatcount="1" repeatto="0" sid="5376920127770048" speed="5">
+                    <frame duration="1" hotspotX="0.5" hotspotY="0.500843" original-source="E:\Games - CA Files\Pics\bed pink.png" />
+                </animation>
+            </animation-folder>
+        </object-type>
+        <object-type name="TiledBackground" sid="990984877261268">
+            <plugin id="TiledBg" />
+            <texture />
+        </object-type>
+        <object-type name="PatientBedSolid" sid="4818148469818149">
+            <plugin id="TiledBg" />
+            <behaviors>
+                <behavior-type name="Solid" sid="9751303377092645">
+                    <behavior id="solid" />
+                </behavior-type>
+            </behaviors>
+            <texture />
+        </object-type>
+        <object-type name="PatientBedAnimation" sid="6798084258855726">
+            <plugin id="Sprite" />
+            <animation-folder>
+                <animation framecount="4" loop="1" name="Sleeping" pingpong="0" repeatcount="1" repeatto="0" sid="4949490107580952" speed="5">
+                    <frame duration="1" hotspotX="0.5" hotspotY="0.5" />
+                    <frame duration="1" hotspotX="0.5" hotspotY="0.5" />
+                    <frame duration="1" hotspotX="0.5" hotspotY="0.5" />
+                    <frame duration="1" hotspotX="0.5" hotspotY="0.5" />
+                </animation>
+                <animation framecount="1" loop="0" name="Puking" pingpong="0" repeatcount="1" repeatto="0" sid="8224470691709178" speed="5">
+                    <frame duration="1" hotspotX="0.5" hotspotY="0.5" original-source="E:\Games - CA Files\bed64x96.png">
+                        <collision-poly>
+                            <point x="0.0625" y="0.0416667" />
+                            <point x="0.5" y="0" />
+                            <point x="0.9375" y="0.0416667" />
+                            <point x="1" y="0.5" />
+                            <point x="0.984375" y="0.989583" />
+                            <point x="0.5" y="0.833333" />
+                            <point x="0.03125" y="0.979167" />
+                            <point x="0" y="0.5" />
+                        </collision-poly>
+                    </frame>
+                </animation>
+            </animation-folder>
+        </object-type>
+        <object-type name="PlayerScore" sid="574785822752628">
+            <plugin id="Text" />
+        </object-type>
+        <object-type name="ButtonL1" sid="951761726921278">
+            <plugin id="Button" />
+        </object-type>
+        <object-type name="ButtonL2" sid="7605245962536843">
+            <plugin id="Button" />
+        </object-type>
+        <object-type name="ButtonL3" sid="8048700919340036">
+            <plugin id="Button" />
+        </object-type>
+        <object-type name="TextBonusScore" sid="1022904169329895">
+            <plugin id="Text" />
+        </object-type>
+        <object-type name="TextLayoutTitle" sid="6538507863802525">
+            <plugin id="Text" />
+        </object-type>
+        <object-type name="Button" sid="3794615103695313">
+            <plugin id="Button" />
+        </object-type>
+        <object-type name="PlayerLives" sid="3092991086916771">
+            <plugin id="Text" />
+        </object-type>
+        <object-type name="TextTimeRemaining" sid="5924724482888796">
+            <plugin id="Text" />
+        </object-type>
+        <object-type name="Kills" sid="7434533154113771">
+            <plugin id="Text" />
+        </object-type>
+        <object-type name="Syringe" sid="4236135333911332">
+            <plugin id="Sprite" />
+            <animation-folder>
+                <animation framecount="1" loop="0" name="Default" pingpong="0" repeatcount="1" repeatto="0" sid="7402511444009033" speed="5">
+                    <frame duration="1" hotspotX="0.515152" hotspotY="0.504" original-source="E:\Games - CA Files\Syringe.png" />
+                </animation>
+            </animation-folder>
+        </object-type>
+        <object-type name="Mouse" sid="7544258887090133">
+            <plugin id="Mouse" />
+        </object-type>
+        <object-type name="TextBonus" sid="7952388769135349">
+            <plugin id="Text" />
+        </object-type>
+        <object-type name="Function" sid="1376018791542744">
+            <plugin id="Function" />
+        </object-type>
+        <object-type name="TextBonusTime" sid="5002568103365934">
+            <plugin id="Text" />
+        </object-type>
+        <object-type name="TextWin" sid="1256472542171702">
+            <plugin id="Text" />
+        </object-type>
+        <object-type name="TextLose" sid="8635340182984213">
+            <plugin id="Text" />
+        </object-type>
+        <object-type name="ButtonRetry" sid="8218283710302214">
+            <plugin id="Button" />
+        </object-type>
+        <object-type name="ButtonNextLevel" sid="290786509274092">
+            <plugin id="Button" />
+        </object-type>
+        <object-type name="ButtonContinue" sid="9994531946544222">
+            <plugin id="Button" />
+        </object-type>
+        <object-type name="SyringeBlue" sid="9360232420743579">
+            <plugin id="Sprite" />
+            <behaviors>
+                <behavior-type name="Flash" sid="82107484379496">
+                    <behavior id="Flash" />
+                </behavior-type>
+            </behaviors>
+            <animation-folder>
+                <animation framecount="1" loop="0" name="Default" pingpong="0" repeatcount="1" repeatto="0" sid="7928992650961145" speed="5">
+                    <frame duration="1" hotspotX="0.507246" hotspotY="0.50193" original-source="E:\Games - CA Files\Pics\syringe.png">
+                        <collision-poly>
+                            <point x="0.0289855" y="0.00772201" />
+                            <point x="0.971014" y="0.00772201" />
+                            <point x="1" y="0.498069" />
+                            <point x="0.550725" y="0.880309" />
+                            <point x="0.492754" y="1" />
+                            <point x="0.434783" y="0.88417" />
+                            <point x="0" y="0.498069" />
+                        </collision-poly>
+                    </frame>
+                </animation>
+            </animation-folder>
+        </object-type>
+        <object-type name="TextLayoutDesc" sid="8931624487403249">
+            <plugin id="Text" />
+        </object-type>
+        <object-type name="BGSplash1" sid="1647887617186264">
+            <plugin id="TiledBg" />
+            <texture original-source="E:\Games - CA Files\BG Splash L1.png" />
+        </object-type>
+        <object-type name="BGSplash3" sid="4490248017006819">
+            <plugin id="TiledBg" />
+            <texture original-source="E:\Games - CA Files\BG Splash L3.png" />
+        </object-type>
+        <object-type name="BGSplash2" sid="4482629019804526">
+            <plugin id="TiledBg" />
+            <texture original-source="E:\Games - CA Files\BG Splash L2.png" />
+        </object-type>
+        <object-type name="TiledBackground2" sid="5535719276231413">
+            <plugin id="TiledBg" />
+            <texture original-source="E:\Games - CA Files\BG Splash Start.png" />
+        </object-type>
+        <object-type name="TextAwakeCount" sid="1919365951442535">
+            <plugin id="Text" />
+        </object-type>
+        <object-type name="TextAwakeCount2" sid="8724014751646495">
+            <plugin id="Text" />
+        </object-type>
+        <object-type name="SyringeRed" sid="4567442241727958">
+            <plugin id="Sprite" />
+            <animation-folder>
+                <animation framecount="1" loop="0" name="Default" pingpong="0" repeatcount="1" repeatto="0" sid="3875227908169754" speed="5">
+                    <frame duration="1" hotspotX="0.515152" hotspotY="0.504" original-source="E:\Games - CA Files\Syringe.png" />
+                </animation>
+            </animation-folder>
+        </object-type>
+        <object-type name="Sprite2" sid="3153611616727301">
+            <plugin id="Sprite" />
+            <animation-folder>
+                <animation framecount="1" loop="0" name="Default" pingpong="0" repeatcount="1" repeatto="0" sid="2103411128852256" speed="5">
+                    <frame duration="1" hotspotX="0.5" hotspotY="0.5" />
+                </animation>
+            </animation-folder>
+        </object-type>
+        <object-type name="SyringeGreen" sid="1994044824328491">
+            <plugin id="Sprite" />
+            <behaviors>
+                <behavior-type name="Flash" sid="6069223951291261">
+                    <behavior id="Flash" />
+                </behavior-type>
+            </behaviors>
+            <animation-folder>
+                <animation framecount="1" loop="0" name="Default" pingpong="0" repeatcount="1" repeatto="0" sid="5303529191955087" speed="5">
+                    <frame duration="1" hotspotX="0.507246" hotspotY="0.50193" original-source="E:\Games - CA Files\Pics\syringe.png">
+                        <collision-poly>
+                            <point x="0.0289855" y="0.00772201" />
+                            <point x="0.971014" y="0.00772201" />
+                            <point x="1" y="0.498069" />
+                            <point x="0.550725" y="0.880309" />
+                            <point x="0.492754" y="1" />
+                            <point x="0.434783" y="0.88417" />
+                            <point x="0" y="0.498069" />
+                        </collision-poly>
+                    </frame>
+                </animation>
+            </animation-folder>
+        </object-type>
+        <object-type name="Audio" sid="8800919245338105">
+            <plugin id="Audio" />
+        </object-type>
+        <object-type name="DocL2" sid="6264782353301379">
+            <plugin id="Sprite" />
+            <instance-variables>
+                <instance-variable name="L2Health" sid="9919102974861873" type="number" />
+            </instance-variables>
+            <behaviors>
+                <behavior-type name="Solid" sid="8313718618272845">
+                    <behavior id="solid" />
+                </behavior-type>
+                <behavior-type name="Pathfinding" sid="1163918264710928">
+                    <behavior id="Pathfinding" />
+                </behavior-type>
+                <behavior-type name="Flash" sid="1378698067784416">
+                    <behavior id="Flash" />
+                </behavior-type>
+            </behaviors>
+            <animation-folder>
+                <animation framecount="4" loop="1" name="Default" pingpong="0" repeatcount="1" repeatto="0" sid="3843704958263384" speed="5">
+                    <frame duration="1" hotspotX="0.5" hotspotY="0.5">
+                        <collision-poly>
+                            <point x="1" y="0" />
+                            <point x="1" y="1" />
+                            <point x="0" y="1" />
+                            <point x="0" y="0" />
+                        </collision-poly>
+                    </frame>
+                    <frame duration="1" hotspotX="0.5" hotspotY="0.5">
+                        <collision-poly>
+                            <point x="1" y="0" />
+                            <point x="1" y="1" />
+                            <point x="0" y="1" />
+                            <point x="0" y="0" />
+                        </collision-poly>
+                    </frame>
+                    <frame duration="1" hotspotX="0.5" hotspotY="0.5">
+                        <collision-poly>
+                            <point x="1" y="0" />
+                            <point x="1" y="1" />
+                            <point x="0" y="1" />
+                            <point x="0" y="0" />
+                        </collision-poly>
+                    </frame>
+                    <frame duration="1" hotspotX="0.5" hotspotY="0.5">
+                        <collision-poly>
+                            <point x="1" y="0" />
+                            <point x="1" y="1" />
+                            <point x="0" y="1" />
+                            <point x="0" y="0" />
+                        </collision-poly>
+                    </frame>
+                </animation>
+            </animation-folder>
+        </object-type>
+        <object-type name="Patient2" sid="5149926587338353">
+            <plugin id="Sprite" />
+            <instance-variables>
+                <instance-variable name="Floating" sid="6704642444209087" type="boolean" />
+                <instance-variable name="L2InHand" sid="9715891400248058" type="number" />
+            </instance-variables>
+            <behaviors>
+                <behavior-type name="Turret" sid="8591773151936644">
+                    <behavior id="Turret" />
+                </behavior-type>
+            </behaviors>
+            <animation-folder>
+                <animation framecount="1" loop="0" name="Default" pingpong="0" repeatcount="1" repeatto="0" sid="4034986813329435" speed="5">
+                    <frame duration="1" hotspotX="0.502326" hotspotY="0.5" original-source="E:\Games - CA Files\Pics\L2PatientBlonde.png">
+                        <image-point name="Imagepoint 1" x="0.790698" y="0.463483" />
+                        <collision-poly>
+                            <point x="0.00465116" y="0.5" />
+                            <point x="0.353488" y="0.213483" />
+                            <point x="0.497674" y="0.0758427" />
+                            <point x="0.64186" y="0.216292" />
+                            <point x="1" y="0.5" />
+                            <point x="0.637209" y="0.780899" />
+                            <point x="0.497674" y="0.91573" />
+                        </collision-poly>
+                    </frame>
+                </animation>
+            </animation-folder>
+        </object-type>
+        <object-type name="Button2" sid="8422250731880969">
+            <plugin id="Button" />
+        </object-type>
+        <object-type name="Patient3" sid="608537177295747">
+            <plugin id="Sprite" />
+            <instance-variables>
+                <instance-variable name="Floating" sid="6520791974767788" type="boolean" />
+                <instance-variable name="L2InHand" sid="6359482889626232" type="number" />
+            </instance-variables>
+            <behaviors>
+                <behavior-type name="Turret" sid="332669188002548">
+                    <behavior id="Turret" />
+                </behavior-type>
+            </behaviors>
+            <animation-folder>
+                <animation framecount="1" loop="0" name="Default" pingpong="0" repeatcount="1" repeatto="0" sid="102408275223535" speed="5">
+                    <frame duration="1" hotspotX="0.5" hotspotY="0.5" original-source="E:\Games - CA Files\Pics\L2PatientBlack.png">
+                        <image-point name="Imagepoint 1" x="0.740741" y="0.450355" />
+                        <collision-poly>
+                            <point x="0.240741" y="0.815603" />
+                            <point x="0.00925926" y="0.5" />
+                            <point x="0.226852" y="0.173759" />
+                            <point x="0.5" y="0.0390071" />
+                            <point x="0.773148" y="0.173759" />
+                            <point x="1" y="0.5" />
+                            <point x="0.75" y="0.808511" />
+                            <point x="0.5" y="0.960993" />
+                        </collision-poly>
+                    </frame>
+                </animation>
+            </animation-folder>
+        </object-type>
+        <object-type name="Spawn1" sid="5473676559026227">
+            <plugin id="Sprite" />
+            <animation-folder>
+                <animation framecount="1" loop="0" name="Default" pingpong="0" repeatcount="1" repeatto="0" sid="1369086293136872" speed="5">
+                    <frame duration="1" hotspotX="0.5" hotspotY="0.5" />
+                </animation>
+            </animation-folder>
+        </object-type>
+        <object-type name="Spawn2" sid="7325409546458462">
+            <plugin id="Sprite" />
+            <animation-folder>
+                <animation framecount="1" loop="0" name="Default" pingpong="0" repeatcount="1" repeatto="0" sid="6994391299876494" speed="5">
+                    <frame duration="1" hotspotX="0.5" hotspotY="0.5" />
+                </animation>
+            </animation-folder>
+        </object-type>
+        <object-type name="Keyboard" sid="8598005854758434">
+            <plugin id="Keyboard" />
+        </object-type>
+        <object-type name="Spawn3" sid="8331343999854867">
+            <plugin id="Sprite" />
+            <animation-folder>
+                <animation framecount="1" loop="0" name="Default" pingpong="0" repeatcount="1" repeatto="0" sid="2879165335305378" speed="5">
+                    <frame duration="1" hotspotX="0.5" hotspotY="0.5" />
+                </animation>
+            </animation-folder>
+        </object-type>
+        <object-type name="GridBackground2" sid="8215843854521011">
+            <plugin id="TiledBg" />
+            <texture />
+        </object-type>
+        <object-type name="TextStartL3" sid="2032582672929093">
+            <plugin id="Text" />
+        </object-type>
+        <object-type name="TextTimerPlayed" sid="5109122183384902">
+            <plugin id="Text" />
+        </object-type>
+    </object-folder>
+    <families />
+    <layout-folder>
+        <layout>Level1.xml</layout>
+        <layout>Level1Splash.xml</layout>
+        <layout>Start Screen.xml</layout>
+        <layout>Level2Splash.xml</layout>
+        <layout>Level3Splash.xml</layout>
+        <layout>Level2.xml</layout>
+        <layout>Level3.xml</layout>
+    </layout-folder>
+    <event-folder>
+        <event-sheet>Event L1.xml</event-sheet>
+        <event-sheet>Event Start.xml</event-sheet>
+        <event-sheet>Event L1 Splash.xml</event-sheet>
+        <event-sheet>Event L2 Splash.xml</event-sheet>
+        <event-sheet>Event L3 Splash.xml</event-sheet>
+        <event-sheet>Event L2.xml</event-sheet>
+        <event-sheet>Event sheet 1.xml</event-sheet>
+    </event-folder>
+    <global-instances>
+        <global-instance type="Touch" uid="29">
+            <properties>
+                <use-mouse-input>Yes</use-mouse-input>
+            </properties>
+        </global-instance>
+        <global-instance type="Mouse" uid="125" />
+        <global-instance type="Function" uid="127" />
+        <global-instance type="Audio" uid="114">
+            <properties>
+                <timescale-audio>Off</timescale-audio>
+                <saveload>All</saveload>
+                <play-in-background>No</play-in-background>
+                <positioned-audio></positioned-audio>
+                <panning-model>HRTF</panning-model>
+                <distance-model>Inverse</distance-model>
+                <listener-z-height>600</listener-z-height>
+                <reference-distance>600</reference-distance>
+                <maximum-distance>10000</maximum-distance>
+                <roll-off-factor>1</roll-off-factor>
+            </properties>
+        </global-instance>
+        <global-instance type="Keyboard" uid="107" />
+    </global-instances>
+    <sounds-folder>
+        <file name="Katie Blah.m4a" />
+        <file name="Katie Blah.ogg" />
+        <file name="Background_Music.ogg" />
+        <file name="DocDie.m4a" />
+        <file name="DocDie.ogg" />
+        <file name="Clara Blah.m4a" />
+        <file name="Clara Blah.ogg" />
+        <file name="Ava Blah.m4a" />
+        <file name="Ava Blah.ogg" />
+        <file name="CoughButton.ogg" />
+    </sounds-folder>
+    <music-folder />
+    <files-folder>
+        <file-folder name="Icons">
+            <file name="icon-16.png" />
+            <file name="icon-32.png" />
+            <file name="icon-114.png" />
+            <file name="icon-128.png" />
+            <file name="icon-256.png" />
+            <file name="loading-logo.png" />
+        </file-folder>
+    </files-folder>
+</c2project>

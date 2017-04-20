@@ -1,0 +1,614 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<c2eventsheet>
+    <!--All the 'name' attributes are ignored by Construct 2 - they are there for readability only.-->
+    <name>Event L1</name>
+    <events>
+        <variable comment="Number of Docs to escape before level is finished" constant="0" name="L1Lives" sid="4877488068434683" static="0" type="number">15</variable>
+        <variable comment="Player Score" constant="0" name="L1Score" sid="5102944987886992" static="0" type="number">0</variable>
+        <variable comment="Number of Doctors killed" constant="0" name="L1Kills" sid="2662751974961282" static="0" type="number">0</variable>
+        <variable comment="Countdown Clock" constant="0" name="L1GameTime" sid="568172955628451" static="0" type="number">60</variable>
+        <variable comment="Number of Awake Patients" constant="0" name="L1AwakePatients" sid="1363143601467699" static="0" type="number">0</variable>
+        <variable constant="0" name="L1TimePlayed" sid="8127091037826234" static="0" type="number">0</variable>
+        <variable comment="Seconds interval between spawning a new enemy." constant="0" name="L1SpawnDocTime" sid="2757911532224406" static="0" type="number">4</variable>
+        <event-group description="" sid="8788750218292351" title="System">
+            <sub-events>
+                <event-block sid="5092532941889754">
+                    <conditions>
+                        <condition id="-1" name="Every tick" sid="5653623111527884" type="System" />
+                    </conditions>
+                    <actions>
+                        <action id="0" name="Set text" sid="5146354967634875" type="PlayerScore">
+                            <param id="0" name="Text">&quot;Score: &quot; &amp; L1Score</param>
+                        </action>
+                        <action id="0" name="Set text" sid="6974486892894127" type="PlayerLives">
+                            <param id="0" name="Text">&quot;Lives: &quot; &amp;L1Lives</param>
+                        </action>
+                        <action id="0" name="Set text" sid="5663367108148593" type="TextTimeRemaining">
+                            <param id="0" name="Text">&quot;Time Remaining: &quot; &amp;L1GameTime</param>
+                        </action>
+                        <action id="0" name="Set text" sid="8903751044207455" type="Kills">
+                            <param id="0" name="Text">&quot;Kills: &quot; &amp;L1Kills</param>
+                        </action>
+                        <action id="0" name="Set text" sid="9271145001382657" type="TextAwakeCount2">
+                            <param id="0" name="Text">L1AwakePatients</param>
+                        </action>
+                        <action id="0" name="Set text" sid="1985403953548667" type="TextTimerPlayed">
+                            <param id="0" name="Text">&quot;Time Played: &quot; &amp;L1TimePlayed</param>
+                        </action>
+                    </actions>
+                </event-block>
+            </sub-events>
+        </event-group>
+        <event-group description="" sid="381150972499559" title="Timing">
+            <sub-events>
+                <comment>Timer - Count down</comment>
+                <event-block sid="5653718529791386">
+                    <conditions>
+                        <condition id="-6" name="Every X seconds" sid="4372971408141851" type="System">
+                            <param id="0" name="Interval (seconds)">1.0</param>
+                        </condition>
+                        <condition id="-7" name="Compare time" sid="4304540668768834" type="System">
+                            <param id="0" name="Comparison">5</param>
+                            <param id="1" name="Time (seconds)">0</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-11" name="Subtract from" sid="565281702291359" type="System">
+                            <param id="0" name="Variable">L1GameTime</param>
+                            <param id="1" name="Value">1</param>
+                        </action>
+                        <action id="-10" name="Add to" sid="2587070422577477" type="System">
+                            <param id="0" name="Variable">L1TimePlayed</param>
+                            <param id="1" name="Value">1</param>
+                        </action>
+                    </actions>
+                </event-block>
+            </sub-events>
+        </event-group>
+        <event-group description="" sid="5418124974521638" title="Doctor Controls">
+            <sub-events>
+                <comment>Move 1st Doctor</comment>
+                <event-block sid="3862388058798071">
+                    <conditions>
+                        <condition id="-2" name="On start of layout" sid="6856267453960801" type="System" />
+                    </conditions>
+                    <actions>
+                        <action behavior="Pathfinding" id="0" name="Find path" sid="8222287286324009" type="Doctor">
+                            <param id="0" name="X">DoctorExit.X</param>
+                            <param id="1" name="Y">DoctorExit.Y</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <comment>Spawn Doctor Time Interval</comment>
+                <event-block sid="203869456442577">
+                    <conditions>
+                        <condition id="-6" name="Every X seconds" sid="2089309412498427" type="System">
+                            <param id="0" name="Interval (seconds)">L1SpawnDocTime</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="0" name="Spawn another object" sid="9662727394322633" type="DocSpawn">
+                            <param id="0" name="Object">Doctor</param>
+                            <param id="1" name="Layer">&quot;Game&quot;</param>
+                            <param id="2" name="Image point">0</param>
+                        </action>
+                        <action behavior="Pathfinding" id="0" name="Find path" sid="1379826844431688" type="Doctor">
+                            <param id="0" name="X">DoctorExit.X</param>
+                            <param id="1" name="Y">DoctorExit.Y</param>
+                        </action>
+                    </actions>
+                    <sub-events>
+                        <comment>Doc - Spawn faster each time</comment>
+                        <event-block sid="8485668796204045">
+                            <conditions>
+                                <condition id="-14" name="Compare variable" sid="2788433904518086" type="System">
+                                    <param id="0" name="Variable">L1SpawnDocTime</param>
+                                    <param id="1" name="Comparison">4</param>
+                                    <param id="2" name="Value">0.5</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-11" name="Subtract from" sid="2775274249167825" type="System">
+                                    <param id="0" name="Variable">L1SpawnDocTime</param>
+                                    <param id="1" name="Value">0.1</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-block>
+                <comment>Doc - Find path, move along path</comment>
+                <event-block sid="9181334025591682">
+                    <conditions>
+                        <condition behavior="Pathfinding" id="0" name="On path found" sid="9894309766111461" type="Doctor" />
+                    </conditions>
+                    <actions>
+                        <action behavior="Pathfinding" id="1" name="Move along path" sid="7053277660422393" type="Doctor" />
+                    </actions>
+                </event-block>
+                <comment>Bullet - When enemy hit, subtract from health, add to score, and spawn particles.</comment>
+                <event-block sid="2580787456124821">
+                    <conditions>
+                        <condition id="0" name="On collision with another object" sid="2190992771242602" type="Puke">
+                            <param id="0" name="Object">Doctor</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-12" name="Subtract from" sid="3840436354663677" type="Doctor">
+                            <param id="0" name="Instance variable">health</param>
+                            <param id="1" name="Value">1</param>
+                        </action>
+                        <action id="-9" name="Destroy" sid="8330719865969459" type="Puke" />
+                        <action id="0" name="Spawn another object" sid="7328898437723922" type="Puke">
+                            <param id="0" name="Object">PukeParticles</param>
+                            <param id="1" name="Layer">&quot;Game&quot;</param>
+                            <param id="2" name="Image point">1</param>
+                        </action>
+                        <action id="-10" name="Add to" sid="2404625831099028" type="System">
+                            <param id="0" name="Variable">L1Score</param>
+                            <param id="1" name="Value">1</param>
+                        </action>
+                        <action behavior="Flash" id="0" name="Flash" sid="7305009068345329" type="Doctor">
+                            <param id="0" name="&apos;On&apos; time">0.1</param>
+                            <param id="1" name="&apos;Off&apos; time">0.1</param>
+                            <param id="2" name="Duration">1.0</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <comment>Doctor - Destroy</comment>
+                <event-block sid="2991041877994684">
+                    <conditions>
+                        <condition id="-7" name="Compare instance variable" sid="7449065730073333" type="Doctor">
+                            <param id="0" name="Instance variable">health</param>
+                            <param id="1" name="Comparison">3</param>
+                            <param id="2" name="Value">0</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="0" name="Spawn another object" sid="7868055353786966" type="Doctor">
+                            <param id="0" name="Object">DocDestroyParticles</param>
+                            <param id="1" name="Layer">&quot;Game&quot;</param>
+                            <param id="2" name="Image point">0</param>
+                        </action>
+                        <action id="-9" name="Destroy" sid="2567060990427908" type="Doctor" />
+                        <action id="0" name="Play" sid="3858550909451525" type="Audio">
+                            <param id="0" name="Audio file">DocDie</param>
+                            <param id="2" name="Loop">0</param>
+                            <param id="3" name="Volume">0</param>
+                            <param id="1" name="Tag (optional)">&quot;&quot;</param>
+                        </action>
+                        <action id="-10" name="Add to" sid="3413718749336489" type="System">
+                            <param id="0" name="Variable">L1Kills</param>
+                            <param id="1" name="Value">1</param>
+                        </action>
+                        <action id="-10" name="Add to" sid="3257168455454435" type="System">
+                            <param id="0" name="Variable">L1Score</param>
+                            <param id="1" name="Value">5</param>
+                        </action>
+                        <action id="-10" name="Add to" sid="4196238570790533" type="System">
+                            <param id="0" name="Variable">L1GameTime</param>
+                            <param id="1" name="Value">3</param>
+                        </action>
+                        <action id="0" name="Set text" sid="1082108780416759" type="TextBonusTime">
+                            <param id="0" name="Text">&quot;Time Bonus&quot;</param>
+                        </action>
+                        <action id="-15" name="Set visible" sid="879636372060268" type="TextBonusScore">
+                            <param id="0" name="Visibility">1</param>
+                        </action>
+                        <action id="-15" name="Set visible" sid="5116529941616965" type="TextBonusTime">
+                            <param id="0" name="Visibility">1</param>
+                        </action>
+                        <action id="-16" name="Wait" sid="7067035830638146" type="System">
+                            <param id="0" name="Seconds">1.5</param>
+                        </action>
+                        <action id="-15" name="Set visible" sid="8526189335482542" type="TextBonusTime">
+                            <param id="0" name="Visibility">0</param>
+                        </action>
+                        <action id="-15" name="Set visible" sid="4778723024968959" type="TextBonusScore">
+                            <param id="0" name="Visibility">0</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <comment>Doctor - Destroy Doc + random patient when targe is reached</comment>
+                <event-block sid="3011377715560027">
+                    <conditions>
+                        <condition id="0" name="On collision with another object" sid="906689155708223" type="Doctor">
+                            <param id="0" name="Object">DoctorExit</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-9" name="Destroy" sid="4840031436679653" type="Doctor" />
+                        <action id="-11" name="Subtract from" sid="9041398973892992" type="System">
+                            <param id="0" name="Variable">L1Lives</param>
+                            <param id="1" name="Value">1</param>
+                        </action>
+                    </actions>
+                    <sub-events>
+                        <event-block bookmark="1" sid="4330320011984102">
+                            <conditions>
+                                <condition id="-16" name="Pick random instance" sid="6516369926876063" type="System">
+                                    <param id="0" name="Object">Patient1</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-9" name="Destroy" sid="8708822327813874" type="Patient1" />
+                                <action id="0" name="Spawn another object" sid="8256260238895358" type="Patient1">
+                                    <param id="0" name="Object">DocDestroyParticles</param>
+                                    <param id="1" name="Layer">&quot;Game&quot;</param>
+                                    <param id="2" name="Image point">0</param>
+                                </action>
+                            </actions>
+                            <sub-events>
+                                <event-block disabled="1" sid="6835451750815528">
+                                    <conditions>
+                                        <condition id="-14" name="Compare variable" sid="1050525510111878" type="System">
+                                            <param id="0" name="Variable">L1AwakePatients</param>
+                                            <param id="1" name="Comparison">4</param>
+                                            <param id="2" name="Value">0</param>
+                                        </condition>
+                                    </conditions>
+                                    <actions>
+                                        <action id="-11" name="Subtract from" sid="1785102679190382" type="System">
+                                            <param id="0" name="Variable">L1AwakePatients</param>
+                                            <param id="1" name="Value">1</param>
+                                        </action>
+                                    </actions>
+                                </event-block>
+                            </sub-events>
+                        </event-block>
+                    </sub-events>
+                </event-block>
+            </sub-events>
+        </event-group>
+        <event-group description="" sid="601438000099794" title="Patient Controls">
+            <sub-events>
+                <comment>Patient - target Doctors</comment>
+                <event-block sid="2210890628709315">
+                    <conditions>
+                        <condition id="-2" name="On start of layout" sid="5422399913777088" type="System" />
+                    </conditions>
+                    <actions>
+                        <action behavior="Turret" id="1" name="Add object to target" sid="1033219106945593" type="Patient1">
+                            <param id="0" name="Target">Doctor</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <comment>When shooting, spawn a bullet.</comment>
+                <event-block sid="4245708268193353">
+                    <conditions>
+                        <condition behavior="Turret" id="1" name="On shoot" sid="6929111752638031" type="Patient1" />
+                    </conditions>
+                    <actions>
+                        <action id="0" name="Spawn another object" sid="6517419002842567" type="Patient1">
+                            <param id="0" name="Object">Puke</param>
+                            <param id="1" name="Layer">&quot;Game&quot;</param>
+                            <param id="2" name="Image point">1</param>
+                        </action>
+                        <action id="0" name="Play" sid="4365674225304264" type="Audio">
+                            <param id="0" name="Audio file">Katie Blah</param>
+                            <param id="2" name="Loop">0</param>
+                            <param id="3" name="Volume">0</param>
+                            <param id="1" name="Tag (optional)">&quot;&quot;</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <comment>Bullet - Destroy out of layout</comment>
+                <event-block sid="3924846847220133">
+                    <conditions>
+                        <condition behavior="Bullet" id="1" name="Compare distance travelled" sid="1632091902072597" type="Puke">
+                            <param id="0" name="Comparison">5</param>
+                            <param id="1" name="Distance">110</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-9" name="Destroy" sid="8568208710786018" type="Puke" />
+                    </actions>
+                </event-block>
+                <comment>Patient - Activate by touching pillow</comment>
+                <event-block bookmark="1" sid="7321083757569978">
+                    <conditions>
+                        <condition id="6" name="On object clicked" sid="1266058230940388" type="Mouse">
+                            <param id="0" name="Mouse button">0</param>
+                            <param id="1" name="Click type">0</param>
+                            <param id="2" name="Object clicked">PatientPillow</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-3" name="Create object" sid="5575718382613616" type="System">
+                            <param id="0" name="Object to create">Patient1</param>
+                            <param id="1" name="Layer">&quot;Game&quot;</param>
+                            <param id="2" name="X">round((Mouse.X - 16) / 32) * 32 + 16</param>
+                            <param id="3" name="Y">round((Mouse.Y - 16) / 32) * 32 + 16</param>
+                        </action>
+                        <action disabled="1" id="-10" name="Add to" sid="3964347547315973" type="System">
+                            <param id="0" name="Variable">L1AwakePatients</param>
+                            <param id="1" name="Value">1</param>
+                        </action>
+                        <action id="-16" name="Wait" sid="3783840682441931" type="System">
+                            <param id="0" name="Seconds">4</param>
+                        </action>
+                        <action id="-9" name="Destroy" sid="2867628599241896" type="Patient1" />
+                    </actions>
+                </event-block>
+                <comment>Patient - Created</comment>
+                <event-block sid="8770527721866473">
+                    <conditions>
+                        <condition id="-18" name="On created" sid="4830518662129297" type="Patient1" />
+                    </conditions>
+                    <actions>
+                        <action behavior="Turret" id="1" name="Add object to target" sid="1683825927147289" type="Patient1">
+                            <param id="0" name="Target">Doctor</param>
+                        </action>
+                        <action id="4" name="Set animation" sid="8380811634380759" type="PatientBedAnimation">
+                            <param id="0" name="Animation">&quot;Puking&quot;</param>
+                            <param id="1" name="From">1</param>
+                        </action>
+                    </actions>
+                    <sub-events>
+                        <comment>Patient - Manage Amounts</comment>
+                        <event-block disabled="1" sid="7083577156874603">
+                            <conditions>
+                                <condition id="-14" name="Compare variable" sid="3558538799441482" type="System">
+                                    <param id="0" name="Variable">L1AwakePatients</param>
+                                    <param id="1" name="Comparison">4</param>
+                                    <param id="2" name="Value">5</param>
+                                </condition>
+                            </conditions>
+                            <actions />
+                            <sub-events>
+                                <event-block disabled="1" sid="6481715510360374">
+                                    <conditions>
+                                        <condition id="-16" name="Pick random instance" sid="5783668927613755" type="System">
+                                            <param id="0" name="Object">Patient1</param>
+                                        </condition>
+                                    </conditions>
+                                    <actions>
+                                        <action id="-9" name="Destroy" sid="7895932289302199" type="Patient1" />
+                                        <action disabled="1" id="-11" name="Subtract from" sid="7815989887981303" type="System">
+                                            <param id="0" name="Variable">L1AwakePatients</param>
+                                            <param id="1" name="Value">1</param>
+                                        </action>
+                                    </actions>
+                                </event-block>
+                            </sub-events>
+                        </event-block>
+                        <event-block disabled="1" sid="5641454518985479">
+                            <conditions>
+                                <condition id="-22" name="Else" sid="2154151329710402" type="System" />
+                            </conditions>
+                            <actions>
+                                <action id="-16" name="Wait" sid="8474150143536692" type="System">
+                                    <param id="0" name="Seconds">5</param>
+                                </action>
+                                <action id="-9" name="Destroy" sid="6193779941723165" type="Patient1" />
+                            </actions>
+                            <sub-events>
+                                <event-block sid="9189031857654367">
+                                    <conditions>
+                                        <condition id="-14" name="Compare variable" sid="6506727805585682" type="System">
+                                            <param id="0" name="Variable">L1AwakePatients</param>
+                                            <param id="1" name="Comparison">4</param>
+                                            <param id="2" name="Value">0</param>
+                                        </condition>
+                                    </conditions>
+                                    <actions>
+                                        <action disabled="1" id="-11" name="Subtract from" sid="8149954824122741" type="System">
+                                            <param id="0" name="Variable">L1AwakePatients</param>
+                                            <param id="1" name="Value">1</param>
+                                        </action>
+                                    </actions>
+                                </event-block>
+                            </sub-events>
+                        </event-block>
+                    </sub-events>
+                </event-block>
+                <event-block sid="6417441447323228">
+                    <conditions>
+                        <condition id="-19" name="On destroyed" sid="4913079610174092" type="Patient1" />
+                    </conditions>
+                    <actions>
+                        <action id="4" name="Set animation" sid="4868598689245311" type="PatientBedAnimation">
+                            <param id="0" name="Animation">&quot;Sleeping&quot;</param>
+                            <param id="1" name="From">1</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block sid="8091983508245154">
+                    <conditions>
+                        <condition id="1" name="Is overlapping another object" sid="6988934824512312" type="Patient1">
+                            <param id="0" name="Object">Patient1</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-9" name="Destroy" sid="6792871375133507" type="Patient1" />
+                    </actions>
+                </event-block>
+            </sub-events>
+        </event-group>
+        <event-group description="" sid="4315766914032274" title="Bonus">
+            <sub-events>
+                <comment>Bonus - Inject more time into game</comment>
+                <event-block sid="5640152559797365">
+                    <conditions>
+                        <condition id="-14" name="Compare variable" sid="6729056351683183" type="System">
+                            <param id="0" name="Variable">L1Kills</param>
+                            <param id="1" name="Comparison">0</param>
+                            <param id="2" name="Value">1</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-15" name="Set visible" sid="3747825222944081" type="TextBonus">
+                            <param id="0" name="Visibility">1</param>
+                        </action>
+                        <action id="-15" name="Set visible" sid="2067283546335747" type="Syringe">
+                            <param id="0" name="Visibility">1</param>
+                        </action>
+                        <action id="0" name="Set text" sid="1923177963209634" type="TextBonus">
+                            <param id="0" name="Text">&quot;Inject More Time&quot;</param>
+                        </action>
+                        <action id="-16" name="Wait" sid="3235070176502404" type="System">
+                            <param id="0" name="Seconds">3</param>
+                        </action>
+                        <action id="-9" name="Destroy" sid="9419463713640897" type="Syringe" />
+                        <action id="-9" name="Destroy" sid="1006486362051703" type="TextBonus" />
+                    </actions>
+                </event-block>
+                <comment>Yellow Syringe - Click Icon To Collect Points</comment>
+                <event-block sid="6853443289468305">
+                    <conditions>
+                        <condition id="6" name="On object clicked" sid="9684444363012678" type="Mouse">
+                            <param id="0" name="Mouse button">0</param>
+                            <param id="1" name="Click type">0</param>
+                            <param id="2" name="Object clicked">Syringe</param>
+                        </condition>
+                        <condition id="-9" name="Is visible" sid="8516543947043384" type="Syringe" />
+                    </conditions>
+                    <actions>
+                        <action id="-10" name="Add to" sid="8222643713655093" type="System">
+                            <param id="0" name="Variable">L1GameTime</param>
+                            <param id="1" name="Value">2</param>
+                        </action>
+                        <action id="-9" name="Destroy" sid="4322944914705348" type="Syringe" />
+                        <action id="-9" name="Destroy" sid="4340968985012735" type="TextBonus" />
+                    </actions>
+                </event-block>
+                <comment>Blue Syringe - Bonus Points</comment>
+                <event-block sid="3231160798410606">
+                    <conditions>
+                        <condition id="-7" name="Compare time" sid="4006215602006667" type="System">
+                            <param id="0" name="Comparison">0</param>
+                            <param id="1" name="Time (seconds)">random(3,30)</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-15" name="Set visible" sid="220794620248402" type="SyringeBlue">
+                            <param id="0" name="Visibility">1</param>
+                        </action>
+                        <action id="-16" name="Wait" sid="376078241528235" type="System">
+                            <param id="0" name="Seconds">3</param>
+                        </action>
+                        <action id="-9" name="Destroy" sid="7029088785619684" type="SyringeBlue" />
+                    </actions>
+                </event-block>
+                <event-block sid="6969290110300373">
+                    <conditions>
+                        <condition id="6" name="On object clicked" sid="813898691429878" type="Mouse">
+                            <param id="0" name="Mouse button">0</param>
+                            <param id="1" name="Click type">0</param>
+                            <param id="2" name="Object clicked">SyringeBlue</param>
+                        </condition>
+                        <condition id="-9" name="Is visible" sid="380525245199324" type="SyringeBlue" />
+                    </conditions>
+                    <actions>
+                        <action id="-9" name="Destroy" sid="1781741467595749" type="SyringeBlue" />
+                        <action id="-10" name="Add to" sid="1635361888104273" type="System">
+                            <param id="0" name="Variable">L1Score</param>
+                            <param id="1" name="Value">25</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <comment>Green Syringe - Kill Random Doctor</comment>
+                <event-block sid="107836073096179">
+                    <conditions>
+                        <condition id="-7" name="Compare time" sid="5504308770645384" type="System">
+                            <param id="0" name="Comparison">0</param>
+                            <param id="1" name="Time (seconds)">random(10,59)</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-15" name="Set visible" sid="5527274872188272" type="SyringeGreen">
+                            <param id="0" name="Visibility">1</param>
+                        </action>
+                        <action id="-16" name="Wait" sid="2439512121783467" type="System">
+                            <param id="0" name="Seconds">2</param>
+                        </action>
+                        <action id="-9" name="Destroy" sid="4320929074636022" type="SyringeGreen" />
+                    </actions>
+                </event-block>
+                <event-block sid="9901299250828034">
+                    <conditions>
+                        <condition id="6" name="On object clicked" sid="1564224257009048" type="Mouse">
+                            <param id="0" name="Mouse button">0</param>
+                            <param id="1" name="Click type">0</param>
+                            <param id="2" name="Object clicked">SyringeGreen</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-9" name="Destroy" sid="5024027476059371" type="SyringeGreen" />
+                    </actions>
+                    <sub-events>
+                        <event-block sid="5691703222522509">
+                            <conditions>
+                                <condition id="-16" name="Pick random instance" sid="304692194663421" type="System">
+                                    <param id="0" name="Object">Doctor</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-9" name="Destroy" sid="9189410021500046" type="Doctor" />
+                                <action id="-10" name="Add to" sid="9757010697423109" type="System">
+                                    <param id="0" name="Variable">L1Kills</param>
+                                    <param id="1" name="Value">1</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-block>
+            </sub-events>
+        </event-group>
+        <event-group description="" sid="4219776692942298" title="Level Complete">
+            <sub-events>
+                <comment>Win - Display Text &amp; Options</comment>
+                <event-block any="1" sid="9359079652407185">
+                    <conditions>
+                        <condition id="-14" name="Compare variable" sid="7099122557182952" type="System">
+                            <param id="0" name="Variable">L1Kills</param>
+                            <param id="1" name="Comparison">0</param>
+                            <param id="2" name="Value">5</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-15" name="Set visible" sid="1785435000147802" type="TextWin">
+                            <param id="0" name="Visibility">1</param>
+                        </action>
+                        <action id="-16" name="Wait" sid="4624731037449156" type="System">
+                            <param id="0" name="Seconds">3</param>
+                        </action>
+                        <action id="-9" name="Destroy" sid="1844031902370876" type="TextWin" />
+                        <action id="-2" name="Go to layout" sid="8671231380133393" type="System">
+                            <param id="0" name="Layout">Level2Splash</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <comment>Lose - Display Text &amp; Options</comment>
+                <event-block any="1" sid="2597048884132511">
+                    <conditions>
+                        <condition id="-14" name="Compare variable" sid="9189731965901758" type="System">
+                            <param id="0" name="Variable">L1GameTime</param>
+                            <param id="1" name="Comparison">3</param>
+                            <param id="2" name="Value">0</param>
+                        </condition>
+                        <condition id="-14" name="Compare variable" sid="5413229444604268" type="System">
+                            <param id="0" name="Variable">L1Lives</param>
+                            <param id="1" name="Comparison">0</param>
+                            <param id="2" name="Value">0</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-15" name="Set visible" sid="3117808114660466" type="TextLose">
+                            <param id="0" name="Visibility">1</param>
+                        </action>
+                        <action id="-16" name="Wait" sid="6458664988588335" type="System">
+                            <param id="0" name="Seconds">3</param>
+                        </action>
+                        <action id="-15" name="Set visible" sid="7038243420978538" type="TextLose">
+                            <param id="0" name="Visibility">0</param>
+                        </action>
+                        <action id="-2" name="Go to layout" sid="852464273860636" type="System">
+                            <param id="0" name="Layout">Start Screen</param>
+                        </action>
+                    </actions>
+                </event-block>
+            </sub-events>
+        </event-group>
+        <comment></comment>
+    </events>
+</c2eventsheet>
