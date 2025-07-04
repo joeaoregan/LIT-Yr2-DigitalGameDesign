@@ -283,11 +283,18 @@
                             <param id="1" name="Layer">&quot;Game&quot;</param>
                             <param id="2" name="Image point">1</param>
                         </action>
-                        <action id="0" name="Play" sid="4365674225304264" type="Audio">
+                        <action disabled="1" id="0" name="Play" sid="4365674225304264" type="Audio">
                             <param id="0" name="Audio file">Katie Blah</param>
                             <param id="2" name="Loop">0</param>
                             <param id="3" name="Volume">0</param>
                             <param id="1" name="Tag (optional)">&quot;&quot;</param>
+                        </action>
+                        <action id="7" name="Play (by name)" sid="529122241880824" type="Audio">
+                            <param id="0" name="Folder">0</param>
+                            <param id="1" name="Audio file name">choose(&quot;Clara Blah&quot;, &quot;Katie Blah&quot;)</param>
+                            <param id="3" name="Loop">0</param>
+                            <param id="4" name="Volume">0</param>
+                            <param id="2" name="Tag (optional)">&quot;&quot;</param>
                         </action>
                     </actions>
                 </event-block>
